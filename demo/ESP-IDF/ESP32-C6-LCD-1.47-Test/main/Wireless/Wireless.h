@@ -19,6 +19,8 @@ extern uint16_t BLE_NUM;
 extern uint16_t WIFI_NUM;
 extern bool Scan_finish;
 
+extern char * ssid_name; // mjc
+
 void Wireless_Init(void);
 void WIFI_Init(void *arg);
 uint16_t WIFI_Scan(void);

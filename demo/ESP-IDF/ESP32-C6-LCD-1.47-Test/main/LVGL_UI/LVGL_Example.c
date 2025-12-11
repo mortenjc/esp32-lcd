@@ -62,7 +62,7 @@ void Lvgl_Example1(void){
   font_normal = LV_FONT_DEFAULT;                         
   
   lv_coord_t tab_h;
-  tab_h = 45;
+  tab_h = 25; // mjc was 45
   #if LV_FONT_MONTSERRAT_18
     font_large     = &lv_font_montserrat_18;
   #else
@@ -82,6 +82,7 @@ void Lvgl_Example1(void){
 
   lv_style_init(&style_icon);
   lv_style_set_text_color(&style_icon, lv_theme_get_color_primary(NULL));
+  
   lv_style_set_text_font(&style_icon, font_large);
 
   lv_style_init(&style_bullet);
@@ -93,7 +94,7 @@ void Lvgl_Example1(void){
   lv_obj_set_style_text_font(lv_scr_act(), font_normal, 0);
 
 
-  lv_obj_t * t1 = lv_tabview_add_tab(tv, "Onboard");
+  lv_obj_t * t1 = lv_tabview_add_tab(tv, "jCAPS");
   
   
   Onboard_create(t1);
@@ -222,8 +223,10 @@ void example1_increase_lvgl_tick(lv_timer_t * t)
 {
   char buf[100]={0}; 
   
-  snprintf(buf, sizeof(buf), "%ld MB\r\n", SDCard_Size);
+  //snprintf(buf, sizeof(buf), "%ld MB\r\n", SDCard_Size);
+  snprintf(buf, sizeof(buf), "%s\r\n", ssid_name); // mjc
   lv_textarea_set_placeholder_text(SD_Size, buf);
+
   snprintf(buf, sizeof(buf), "%ld MB\r\n", Flash_Size);
   lv_textarea_set_placeholder_text(FlashSize, buf);
   if(Scan_finish)

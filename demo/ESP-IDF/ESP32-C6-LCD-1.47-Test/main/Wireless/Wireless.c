@@ -2,6 +2,9 @@
 
 uint16_t BLE_NUM = 0;
 uint16_t WIFI_NUM = 0;
+char ssid_name_buf[50];
+char * ssid_name = &ssid_name_buf[0];
+wifi_ap_record_t mjcrecord;
 bool Scan_finish = 0;
 
 bool WiFi_Scan_Finish = 0;
@@ -57,6 +60,11 @@ uint16_t WIFI_Scan(void)
     ESP_ERROR_CHECK(esp_wifi_scan_get_ap_num(&ap_count));
     esp_wifi_scan_stop();
     WiFi_Scan_Finish =1;
+
+    // mjc
+    esp_wifi_scan_get_ap_record(&mjcrecord);
+    memcpy(ssid_name_buf, mjcrecord.ssid, sizeof(mjcrecord.ssid));
+
     if(BLE_Scan_Finish == 1)
         Scan_finish = 1;
     return ap_count;

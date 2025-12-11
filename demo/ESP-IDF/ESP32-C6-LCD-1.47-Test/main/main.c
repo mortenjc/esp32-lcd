@@ -18,7 +18,7 @@ void app_main(void)
     RGB_Example();
     SD_Init();                              // SD must be initialized behind the LCD
     LCD_Init();
-    BK_Light(50);
+    BK_Light(10);
     LVGL_Init();                            // returns the screen object
 
 /********************* Demo *********************/

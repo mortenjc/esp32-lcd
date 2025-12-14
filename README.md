@@ -6,10 +6,8 @@ This instruction pertains to the ESP32-C6-lcd-1.47 board.
 ![](docs/ESP32-C6-LCD-1.47.jpg)
 
 # Prerequisites
-
-## Install ESP-IDF 
-
-## Install SquareLine Studio
+Install ESP-IDF
+Install SquareLine Studio
 
 # Modifications
 
@@ -68,6 +66,12 @@ The follwing commands will setup the build environment, configure the build proj
     > ./scripts/target
     > ./scripts/build
     > ./scripts/flash
+
+
+# UIs
+## first_lcd
+The UI as defined in Squareline Studio
+![](docs/first_lcd.png)
 
 
 

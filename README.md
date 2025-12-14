@@ -1,12 +1,20 @@
 # esp32-lcd
-Code for UI on ESP32 with lcd display
+Example code for UI on ESP32 with lcd display using ESP-IDF and
+Squareline Studio. So far this has only been tested on macOS.
 
 This instruction pertains to the ESP32-C6-lcd-1.47 board.
 
-![](docs/ESP32-C6-LCD-1.47.jpg)
+<img src="docs/ESP32-C6-LCD-1.47.jpg" width="400">
+
+The software is based on the <a href="https://files.waveshare.com/wiki/ESP32-C6-LCD-1.47/ESP32-C6-LCD-1.47-Demo.zip"> demo files </a> found on the <a href="https://www.waveshare.com/wiki/ESP32-C6-LCD-1.47">ESP32-C6-LCD-1.47</a> Wiki.
+
+Unfortunately the files didn't work as expected when using Squareline Studio and working
+in the ESP-IDF environment (I didn't test the Arduino builds). So some modifications were
+needed.
 
 # Prerequisites
 Install ESP-IDF
+
 Install SquareLine Studio
 
 # Modifications

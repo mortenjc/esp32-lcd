@@ -3,7 +3,7 @@ Code for UI on ESP32 with lcd display
 
 This instruction pertains to the ESP32-C6-lcd-1.47 board.
 
-
+![](docs/ESP32-C6-LCD-1.47.jpg)
 
 # Prerequisites
 

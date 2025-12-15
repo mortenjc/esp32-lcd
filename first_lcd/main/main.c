@@ -7,12 +7,12 @@
 // #include "esp_log.h"
 // #include "freertos/FreeRTOS.h"
 // #include "freertos/task.h"
+#include "Wireless/Wireless.h"
 #include "driver/adc.h"
 // #include "esp_adc_cal.h"
 
 #include "sdcard.h"
 #include "ui.h"
-
 #include <sys/time.h>
 
 
@@ -36,6 +36,7 @@ int mytime() {
 
 
 void app_main(void) {
+  Wireless_Init();
   vTaskDelay(pdMS_TO_TICKS(3000));
   SD_Init();                 // SD must be initialized behind the LCD
   LCD_Init();
@@ -43,7 +44,7 @@ void app_main(void) {
   LVGL_Init();               // returns the screen object
   ui_init();
 
-  //int nfiles = listdirs();
+  int nfiles = listdirs();
   // app_main2();
 
 

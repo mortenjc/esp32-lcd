@@ -80,6 +80,6 @@ The follwing commands will setup the build environment, configure the build proj
 ## first_lcd
 The UI as defined in Squareline Studio
 
-<img src="docs/first_lcd.png" width="200">
+<img src="docs/first_lcd.png" width="200"><img src="docs/photo.jpg" width="200">
 
 

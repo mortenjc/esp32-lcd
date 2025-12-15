@@ -11,6 +11,7 @@ idf_component_register(
                               "LCD_Driver/ST7789.c"
                               "LVGL_Driver/LVGL_Driver.c"
                               "SD_Card/SD_SPI.c"
+                              "Wireless/wireless.c"
 
                          INCLUDE_DIRS 
                               "./LCD_Driver/Vernon_ST7789T" 

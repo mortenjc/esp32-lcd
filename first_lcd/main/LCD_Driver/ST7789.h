@@ -29,8 +29,14 @@
 #define EXAMPLE_PIN_NUM_LCD_RST        21
 #define EXAMPLE_PIN_NUM_BK_LIGHT       22
 // The pixel number in horizontal and vertical
+#define MJC_ROTATE 0
+#if MJC_ROTATE == 1
+#define EXAMPLE_LCD_H_RES              320
+#define EXAMPLE_LCD_V_RES              172
+#else
 #define EXAMPLE_LCD_H_RES              172
 #define EXAMPLE_LCD_V_RES              320
+#endif
 // Bit number used to represent command and parameter
 #define EXAMPLE_LCD_CMD_BITS           8
 #define EXAMPLE_LCD_PARAM_BITS         8

@@ -2,18 +2,19 @@
 #include "ST7789.h"
 #include "SD_SPI.h"
 
-#include <stdio.h>
-#include <stdlib.h>
-#include "esp_log.h"
-#include "freertos/FreeRTOS.h"
-#include "freertos/task.h"
+// #include <stdio.h>
+// #include <stdlib.h>
+// #include "esp_log.h"
+// #include "freertos/FreeRTOS.h"
+// #include "freertos/task.h"
 #include "driver/adc.h"
-#include "esp_adc_cal.h"
+// #include "esp_adc_cal.h"
 
+#include "sdcard.h"
 #include "ui.h"
-#include "ui_helpers.h"
 
 #include <sys/time.h>
+
 
 //ADC Channels
 #if CONFIG_IDF_TARGET_ESP32
@@ -34,13 +35,17 @@ int mytime() {
 }
 
 
-void app_main(void)
-{
-    SD_Init();                 // SD must be initialized behind the LCD
-    LCD_Init();
-    BK_Light(50);
-    LVGL_Init();               // returns the screen object
-    ui_init();
+void app_main(void) {
+  vTaskDelay(pdMS_TO_TICKS(3000));
+  SD_Init();                 // SD must be initialized behind the LCD
+  LCD_Init();
+  BK_Light(50);
+  LVGL_Init();               // returns the screen object
+  ui_init();
+
+  //int nfiles = listdirs();
+  // app_main2();
+
 
 /********************* Demo *********************/
     char buf[100];
@@ -82,6 +87,10 @@ void app_main(void)
 
         
         i++;
+
+        // if (i % 20 ==0) {
+        //   printf("Hello %d (files %d)\n", i, nfiles);
+        // }
        
         vTaskDelay(pdMS_TO_TICKS(100));
 

@@ -33,7 +33,7 @@ I had to create a custom board support file for my board in
 I used esp32_s2_kaluga_kit_v1_0_0 as a template as it nearly worked.
 
 So I made a copy and renamed the files correspondingly. Then I changed 
-the resolution and title (and the swap parameter - where did I change this?).
+the resolution, title and swap ("color_depth": "16 sw").
 
     {
         "version": "1.0.0",

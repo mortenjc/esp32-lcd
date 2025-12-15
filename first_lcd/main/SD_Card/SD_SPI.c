@@ -41,6 +41,7 @@ void SD_Init(void)
         .quadhd_io_num = -1,
         .max_transfer_sz = 4000,
     };
+    printf("SPI bus initialize..\n");
     ret = spi_bus_initialize(host.slot, &bus_cfg, SDSPI_DEFAULT_DMA);
     if (ret != ESP_OK) {
         ESP_LOGE(SD_TAG, "Failed to initialize SPI bus.");
@@ -55,6 +56,8 @@ void SD_Init(void)
 
     ESP_LOGI(SD_TAG, "Mounting filesystem");
     ret = esp_vfs_fat_sdspi_mount(mount_point, &host, &slot_config, &mount_config, &card);
+
+    printf("esp_vfs_fat_sdspi_mount returns %d\n", ret);
 
     if (ret != ESP_OK) {
         if (ret == ESP_FAIL) {

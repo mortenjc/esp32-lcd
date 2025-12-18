@@ -21,8 +21,10 @@ int listdirs() {
   }
   while ((dp = readdir (dir)) != NULL) {
     //vTaskDelay(2000 / portTICK_RATE_MS);
-    printf("dir found: %s\n", dp->d_name);
-    dircount += 1;
+    if (dp->d_type == DT_DIR) {
+        printf("dir found: %s\n", dp->d_name);
+        dircount += 1;
+    }
   }
   closedir (dir);
   return dircount;
@@ -30,10 +32,6 @@ int listdirs() {
 
 void app_main2(void) {
     esp_err_t ret;
-
-    // Options for mounting the filesystem.
-    // If format_if_mount_failed is set to true, SD card will be partitioned and
-    // formatted in case when mounting fails.
     esp_vfs_fat_sdmmc_mount_config_t mount_config = {
 #ifdef CONFIG_EXAMPLE_FORMAT_IF_MOUNT_FAILED
         .format_if_mount_failed = true,

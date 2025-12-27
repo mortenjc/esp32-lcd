@@ -13,18 +13,18 @@ in the ESP-IDF environment (I didn't test the Arduino builds). So some modificat
 needed.
 
 # Prerequisites
-Install ESP-IDF
 
-Install SquareLine Studio
+Install ESP-IDF - this was installed via VS Code as far as I recall
 
-# Modifications
+Install LVGL library - also installed via VS Code
 
-## ESP-IDF
+Install SquareLine Studio - download and install
 
+# Adjustments
 
 ## Squareline Studio
 None of the board templates I could choose suppoerted the correct 
-resolution for my board (172x320 pixels).
+resolution for my board (172 x 320 pixels in portrait mode 320 x 172 in landscape).
 
 I had to create a custom board support file for my board in 
 
@@ -33,7 +33,7 @@ I had to create a custom board support file for my board in
 I used esp32_s2_kaluga_kit_v1_0_0 as a template as it nearly worked.
 
 So I made a copy and renamed the files correspondingly. Then I changed 
-the resolution, title and swap ("color_depth": "16 sw").
+the resolution, title and swap ("color_depth": "16 sw"). I should probably have updated the URL and descriptions but couldn't be bothered.
 
     {
         "version": "1.0.0",
@@ -64,6 +64,33 @@ the resolution, title and swap ("color_depth": "16 sw").
         "custom_params": []
     }
 
+## LVGL
+The LVGL library had to be slightly modified to support landscape mode for the LCD.
+
+The two files modified were: **st7789.h** where the following code was added
+
+        #define MJC_ROTATE 1
+        #if MJC_ROTATE == 1
+            #define EXAMPLE_LCD_H_RES              320
+            #define EXAMPLE_LCD_V_RES              172
+            #define Offset_X 0       
+            #define Offset_Y 34
+        #else
+            #define EXAMPLE_LCD_H_RES              172
+            #define EXAMPLE_LCD_V_RES              320
+            #define Offset_X 34
+            #define Offset_Y 0
+        #endif
+
+I have no idea why the code needs an x-offset of 34 pixels...
+
+I also added this to **LVGL_Driver.c**:
+
+        #if MJC_ROTATE == 1
+            // Rotate LCD display
+            esp_lcd_panel_swap_xy(panel_handle, true);
+            esp_lcd_panel_mirror(panel_handle, true, true);
+        #endif
 
 # Build
 
@@ -75,11 +102,18 @@ The follwing commands will setup the build environment, configure the build proj
     > ./scripts/build
     > ./scripts/flash
 
+From then on you only need to build and flash which can be done in one go:
+
+    > ./scripts/build && ./scripts/flash
+
+If you need to tweak the system behaviour by enabling or disabling parameters in 
+**sdkconfig.defaults** you will need to run the target script again.
 
 # UIs
 ## first_lcd
-The UI as defined in Squareline Studio
+The UI as defined in Squareline Studio (files in **UI** folder)
 
 <img src="docs/first_lcd.png" width="200"><img src="docs/photo.jpg" width="200">
 
+But this is subject to change without notice as the project unfolds.
 

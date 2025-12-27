@@ -1,11 +1,9 @@
 
-
 idf_component_register(
-                         SRCS "../UI/ui_helpers.c"
-                              "../UI/ui.c"
-                              "../UI/screens/ui_Screen1.c"
-                              "../UI/screens/ui_Screen2.c"
-                              "../UI/images/ui_img_shot_png.c"
+                         SRCS "../UI2/ui_helpers.c"
+                              "../UI2/ui.c"
+                              "../UI2/screens/ui_Screen1.c"
+                              "../UI2/images/ui_img_wifi_png.c"
                               "main.c"
                               "sdcard.c"
                               "LCD_Driver/Vernon_ST7789T/Vernon_ST7789T.c"
@@ -20,5 +18,5 @@ idf_component_register(
                               "./LVGL_Driver"
                               "./SD_Card"
                               "."
-                              "../UI"
+                              "../UI2"
                        )

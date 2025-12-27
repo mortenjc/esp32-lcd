@@ -1,0 +1,2 @@
+ esptool.py erase_flash
+ esptool.py --chip esp32c3 write_flash 0 firmware/ESP32_GENERIC_C3-20251209-v1.27.0.bin

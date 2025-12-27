@@ -28,21 +28,27 @@
 #define EXAMPLE_PIN_NUM_LCD_DC         15
 #define EXAMPLE_PIN_NUM_LCD_RST        21
 #define EXAMPLE_PIN_NUM_BK_LIGHT       22
+
 // The pixel number in horizontal and vertical
-#define MJC_ROTATE 0
+// For Squareline studio using a custom landscape template I need to 
+// rotate like this
+#define MJC_ROTATE 1
 #if MJC_ROTATE == 1
-#define EXAMPLE_LCD_H_RES              320
-#define EXAMPLE_LCD_V_RES              172
+    #define EXAMPLE_LCD_H_RES              320
+    #define EXAMPLE_LCD_V_RES              172
+    #define Offset_X 0       // was 34
+    #define Offset_Y 34        // was 0
 #else
-#define EXAMPLE_LCD_H_RES              172
-#define EXAMPLE_LCD_V_RES              320
+    #define EXAMPLE_LCD_H_RES              172
+    #define EXAMPLE_LCD_V_RES              320
+    #define Offset_X 34
+    #define Offset_Y 0
 #endif
 // Bit number used to represent command and parameter
 #define EXAMPLE_LCD_CMD_BITS           8
 #define EXAMPLE_LCD_PARAM_BITS         8
 
-#define Offset_X 34
-#define Offset_Y 0
+
 
 
 #define LEDC_HS_TIMER          LEDC_TIMER_0

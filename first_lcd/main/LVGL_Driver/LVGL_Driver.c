@@ -26,6 +26,12 @@ bool example_notify_lvgl_flush_ready(esp_lcd_panel_io_handle_t panel_io, esp_lcd
 
 void example_lvgl_flush_cb(lv_disp_drv_t *drv, const lv_area_t *area, lv_color_t *color_map)
 {
+    #if MJC_ROTATE == 1
+        // Rotate LCD display
+        esp_lcd_panel_swap_xy(panel_handle, true);
+        esp_lcd_panel_mirror(panel_handle, true, true);
+    #endif
+
     esp_lcd_panel_handle_t panel_handle = (esp_lcd_panel_handle_t) drv->user_data;
     int offsetx1 = area->x1;
     int offsetx2 = area->x2;
@@ -38,6 +44,7 @@ void example_lvgl_flush_cb(lv_disp_drv_t *drv, const lv_area_t *area, lv_color_t
 /* Rotate display and touch, when rotated screen in LVGL. Called when driver parameters are updated. */
 void example_lvgl_port_update_callback(lv_disp_drv_t *drv)
 {
+    printf("testing if ever called\n");
     esp_lcd_panel_handle_t panel_handle = (esp_lcd_panel_handle_t) drv->user_data;
 
     switch (drv->rotated) {
@@ -79,13 +86,13 @@ void LVGL_Init(void)
     disp_drv.hor_res = EXAMPLE_LCD_H_RES;                         // Horizontal pixel count
     disp_drv.ver_res = EXAMPLE_LCD_V_RES;                         // Vertical axis pixel count
 
-    //disp_drv.rotated = LV_DISP_ROT_90; // 图像旋转      
-    disp_drv.flush_cb = example_lvgl_flush_cb;                          // Function : copy a buffer's content to a specific area of the display
-    disp_drv.drv_update_cb = example_lvgl_port_update_callback;         // Function : Rotate display and touch, when rotated screen in LVGL. Called when driver parameters are updated. 
-    disp_drv.draw_buf = &disp_buf;                                                                      // LVGL will use this buffer(s) to draw the screens contents
+    //disp_drv.rotated = LV_DISP_ROT_90; //    
+    disp_drv.flush_cb = example_lvgl_flush_cb;                    // Function : copy a buffer's content to a specific area of the display
+    disp_drv.drv_update_cb = example_lvgl_port_update_callback;   // Function : Rotate display and touch, when rotated screen in LVGL. Called when driver parameters are updated. 
+    disp_drv.draw_buf = &disp_buf;                                // LVGL will use this buffer(s) to draw the screens contents
     disp_drv.user_data = panel_handle;                
-    ESP_LOGI(TAG_LVGL,"Register display indev to LVGL");                                                  // Custom display driver user data
-    disp = lv_disp_drv_register(&disp_drv);                     // Create screen objects
+    ESP_LOGI(TAG_LVGL,"Register display indev to LVGL");          // Custom display driver user data
+    disp = lv_disp_drv_register(&disp_drv);                       // Create screen objects
     
     /********************* LVGL *********************/
     ESP_LOGI(TAG_LVGL, "Install LVGL tick timer");

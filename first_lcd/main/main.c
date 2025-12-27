@@ -1,4 +1,5 @@
 //
+
 #include "ST7789.h"
 #include "SD_SPI.h"
 #include "Wireless/Wireless.h"
@@ -50,22 +51,22 @@ int list_files(void) {
 }
 
 
-void mjcdemo2(void) {
-  lv_disp_load_scr(ui_Screen2);
-  char buf[100];
-  for (int i = 1; i<500; i+= 24) {
-    sprintf(buf, "B:/sdcard/matrix/%05d.png", i);
-    //sprintf(buf, "B:/sdcard/mat%03d.png", i);
-    //printf("%s\n", buf);
-    lv_img_set_src(ui_Image2, buf);
-    vTaskDelay(pdMS_TO_TICKS(5));
-    lv_timer_handler();
-  }
-}
+// void matrix_movie(void) {
+//   lv_disp_load_scr(ui_Screen2);
+//   char buf[100];
+//   for (int i = 1; i<500; i+= 6) {
+//     sprintf(buf, "B:/sdcard/matrix/%05d.png", i);
+//     //sprintf(buf, "B:/sdcard/mat%03d.png", i);
+//     //printf("%s\n", buf);
+//     lv_img_set_src(ui_Image2, buf);
+//     //vTaskDelay(pdMS_TO_TICKS(5));
+//     lv_timer_handler();
+//   }
+// }
 
 
 
-void mjcdemo1() {
+void mjcgui_demo() {
   lv_disp_load_scr(ui_Screen1);
   char buf[100];
   int i = 0;
@@ -75,8 +76,8 @@ void mjcdemo1() {
   lv_coord_t array[10];
   memset(array, 50, sizeof(array));
 
-  lv_chart_series_t* ui_Chart1_series_1 = lv_chart_add_series(ui_Chart1, lv_color_hex(0x808080), LV_CHART_AXIS_PRIMARY_Y);
-  lv_chart_set_ext_y_array(ui_Chart1, ui_Chart1_series_1, array);
+  // lv_chart_series_t* ui_Chart1_series_1 = lv_chart_add_series(ui_Chart1, lv_color_hex(0x808080), LV_CHART_AXIS_PRIMARY_Y);
+  // lv_chart_set_ext_y_array(ui_Chart1, ui_Chart1_series_1, array);
 
   int t0 = mytime();
 
@@ -93,21 +94,39 @@ void mjcdemo1() {
       array[i] = adc2;
     }
 
-    sprintf(buf, "%d", mytime() - t0);
-    lv_label_set_text(ui_Label10, buf);
+    // sprintf(buf, "%d", mytime() - t0);
+    // lv_label_set_text(ui_Label10, buf);
 
-    sprintf(buf, "%d", adc1);
-    lv_label_set_text(ui_adc0Value, buf);
+    // sprintf(buf, "%d", adc1);
+    // lv_label_set_text(ui_adc0Value, buf);
 
-    sprintf(buf, "%d", adc2);
-    lv_label_set_text(ui_adc1Value, buf);
+    // sprintf(buf, "%d", adc2);
+    // lv_label_set_text(ui_adc1Value, buf);
 
-    lv_chart_refresh(ui_Chart1);
+    // lv_chart_refresh(ui_Chart1);
 
     i++;
 
     vTaskDelay(pdMS_TO_TICKS(100));
     lv_timer_handler();
+  }
+}
+
+
+void landscape() {
+  int t0 = mytime();
+  char buf[20];
+
+  while (1) {
+    int offset = 3600 * 22 + 45 * 60;
+    int t = mytime() - t0 + offset;
+    sprintf(buf, "%02d", (t/3600%24));
+    lv_label_set_text(ui_lblTimeHours, buf);
+    sprintf(buf, "%02d", (t/60)%60);
+    lv_label_set_text(ui_lblTimeMinutes, buf);
+
+    lv_timer_handler();
+    vTaskDelay(pdMS_TO_TICKS(1000));
   }
 }
 
@@ -119,13 +138,16 @@ void app_main(void) {
   LCD_Init();
   BK_Light(50);
   LVGL_Init();
+  //lv_disp_set_rotation(NULL, 90); // has no efect
   ui_init();
 
-  listdirs();
-  list_files();
+  //listdirs();
+  //list_files();
 
+  
   while (1) {
-    mjcdemo2();
-    mjcdemo1();
+    //matrix_movie();
+    // mjcgui_demo();
+    landscape();
   }
 }
